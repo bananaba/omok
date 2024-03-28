@@ -7,9 +7,9 @@ export default function OmokTile({ pos, stone, setStone }) {
     const axis = [];
 
     if (pos[0] === 0) horizontalClass += " first";
-    else if (pos[0] === 17) horizontalClass += " last";
+    else if (pos[0] === 18) horizontalClass += " last";
     if (pos[1] === 0) verticalClass += " first";
-    else if (pos[1] === 17) verticalClass += " last";
+    else if (pos[1] === 18) verticalClass += " last";
 
     axis.push(<Axis className={horizontalClass} />);
     axis.push(<Axis className={verticalClass} />);
@@ -18,8 +18,8 @@ export default function OmokTile({ pos, stone, setStone }) {
   };
 
   const getMark = (pos) => {
-    if ((pos[0] + 4) % 6 !== 0) return null;
-    if ((pos[1] + 4) % 6 !== 0) return null;
+    if ((pos[0] + 3) % 6 !== 0) return null;
+    if ((pos[1] + 3) % 6 !== 0) return null;
     return <Mark />;
   };
 
@@ -31,7 +31,7 @@ export default function OmokTile({ pos, stone, setStone }) {
   };
 
   return (
-    <Tile onClick={setStone}>
+    <Tile onClick={!stone && setStone} className={!stone && "empty"}>
       {getAxis(pos)}
       {getMark(pos)}
       {getStone(stone)}
@@ -46,8 +46,15 @@ const Tile = styled.div`
   border: none;
   background: none;
   overflow: hidden;
-  cursor: pointer;
   flex-shrink: 0;
+
+  &.empty {
+    cursor: pointer;
+
+    &:hover {
+      background-color: gray;
+    }
+  }
 `;
 
 const Stone = styled.div`

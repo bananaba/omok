@@ -4,15 +4,15 @@ import SelectStone from "./SelectStone";
 import { useState, useEffect } from "react";
 
 export default function Game() {
-  const [table, setTable] = useState(new Array(18 * 18));
+  const [table, setTable] = useState(new Array(19 * 19));
   const [turn, setTurn] = useState(false);
   const [player, setPlayer] = useState(undefined);
-  const tiles = new Array(18);
+  const tiles = new Array(19);
 
   const setStone = (x, y) => {
     return () => {
       const copy = [...table];
-      copy[y * 18 + x] = turn ? "white" : "black";
+      copy[y * 19 + x] = turn ? "white" : "black";
       setTable(copy);
       setTurn(!turn);
     };
@@ -22,14 +22,14 @@ export default function Game() {
     setPlayer(color);
   };
 
-  for (let y = 0; y < 18; y++) {
+  for (let y = 0; y < 19; y++) {
     const tile = [];
-    for (let x = 0; x < 18; x++)
+    for (let x = 0; x < 19; x++)
       tile.push(
         <OmokTile
           key={"tile-" + x + "-" + y}
           pos={[x, y]}
-          stone={table[y * 18 + x]}
+          stone={table[y * 19 + x]}
           setStone={setStone(x, y)}
         />
       );
@@ -45,11 +45,13 @@ export default function Game() {
 }
 
 const GameTable = styled.div`
-  position: relative;
-  top: 32px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transform: translate(-50%, -50%);
 `;
 
 const OmokTable = styled.div`
